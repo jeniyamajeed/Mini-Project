@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+{% block title %}
+News list
+{% endblock %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+    <div class="row g-5">
+        <div class="col-lg-8">
+        {% for obj in object_list %}
+            <div class="blog-item mb-5">
+                <div class="row g-0 bg-light overflow-hidden">
+                    <div class="col-12 col-sm-5 h-100">
+                        <img class="img-fluid h-100" src="{{ obj.pic.url }}" style="object-fit: cover;">
+                    </div>
+                    <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small class="me-3"><i class="bi bi-bookmarks me-2"></i>{{obj.created_by.username }}</small>
+                                <small><i class="bi bi-calendar-date me-2"></i>{{obj.created_on}}</small>
+                            </div>
+                            <h5 class="text-uppercase mb-3">{{ obj.title }}</h5>
+                            <p>>{{ obj.content }}</p>
+                            {% if user.is_staff %}
+                            <a class="text-primary text-uppercase" href="{% url 'news-update' pk=obj.id %}">update<i class="bi bi-chevron-right"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <h1>Sorry nothing here!!!</h1>
+        {% endfor %}
+        </div>
+        <div class="col-lg-4">
+            <h3 class="text-uppercase border-start border-5 border-primary ps-3">Actions</h3>
+            <div class="d-flex overflow-hidden mb-3">
+                    <i class="flaticon-house display-1 text-primary me-4"></i>
+                <a href="{% url 'alumni-list' %}" class="h5 d-flex align-items-center bg-light px-3 mb-0 min-w-250">See Other Alumni</a>
+            </div>
+            {% if user.is_staff %}
+            <div class="d-flex overflow-hidden mb-3">
+                <i class="flaticon-vaccine display-1 text-primary me-4"></i>
+                <a href="{% url 'news-add' %}" class="h5 d-flex align-items-center bg-light px-3 mb-0 min-w-250">Add news</a>
+            </div>
+            {% endif %}
+        </div>
+        <div></div>
+    </div>
+    </div>
+</div>
+{% endblock %}

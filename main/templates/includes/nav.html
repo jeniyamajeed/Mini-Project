@@ -1,0 +1,42 @@
+<nav
+  class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0"
+>
+  <a href="{% url 'home' %}" class="navbar-brand ms-lg-5">
+    <h1 class="m-0 text-uppercase text-dark"><i class="bi-book"></i>Alumni</h1>
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarCollapse"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto py-0">
+      <a href="/" class="nav-item nav-link active">Home</a>
+      <!-- <a href="#" class="nav-item nav-link">About</a> -->
+      <a href="{% url 'user-home' %}" class="nav-item nav-link">Dashboard</a>
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register</a>
+        <div class="dropdown-menu m-0">
+          <a href="{% url 'signup' %}?mode=admin" class="dropdown-item">Register as Admin</a>
+          <a href="{% url 'signup' %}?mode=alumni" class="dropdown-item">Register as Alumni</a>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <a
+        href="{% url 'signout' %}"
+        class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5"
+        >Logout <i class="bi bi-arrow-right"></i
+      ></a>
+      {% else %}
+      <a
+        href="{% url 'signin' %}"
+        class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5"
+        >Login <i class="bi bi-arrow-right"></i
+      ></a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+Feedback list
+{% endblock title %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+    {% for obj in object_list %}
+        <div class="mb-5">
+            <div class="d-flex mb-4">
+                <img src="{{ obj.created_by.profile.pic.url }}" class="img-fluid" style="width: 45px; height: 45px;">
+                <div class="ps-3">
+                    <h6><a href="">{{obj.created_by.username}}</a> <small><i>{{obj.created_on}}</i></small></h6>
+                    <p>{{obj.feedback}}</p>
+                    {% if obj.response %}
+                    {% else %}
+                    <a href="{% url 'response-add' feed_id=obj.id %}" class="btn btn-sm btn-light">Reply</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% if obj.response %}
+            <div class="d-flex ms-5 mb-4">
+                <img src="{% static 'img/man.png' %}" class="img-fluid" style="width: 45px; height: 45px;">
+                <div class="ps-3">
+                    <h6><a href="">{% if user.username ==  obj.response.created_by.username %} You {% else %}{{obj.response.created_by.username}} {% endif %}</a> <small><i>{{obj.response.created_on}}</i></small></h6>
+                    <p>{{obj.response.response}}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% empty %}
+    <h1>No suggestions are available!</h1>
+    {% endfor %}
+</div>
+{% endblock content %}

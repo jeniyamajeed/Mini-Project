@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+Alumnies
+{% endblock %}
+{% block topscripts %}
+<script>
+    function onImageError(img) {
+        const url =" {% static 'img/man.png' %}";
+        img.src = url;
+    }
+</script>
+{% endblock topscripts %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <h1>Registered Alumni</h1>
+            <hr>
+            {% for obj in object_list %}
+                <div class="d-flex overflow-hidden mb-3">
+                    <img class="img-fluid" src="{{obj.profile.pic.url}}" onerror="onImageError(this)" style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                    <span href="" class="h5 d-flex align-items-center bg-light px-3 mb-0 min-w-250">
+                        Name: {{obj.username}} <br>
+                        Year: {{obj.profile.year}} <br>
+                        Course: {{obj.profile.course}} <br>
+                        Email: {{obj.profile.email}} <br>
+                        Phone: {{obj.profile.phone}}
+                    </span>
+                </div>
+            {% empty %}
+            <h2>No alumni registered!</h2>
+            {% endfor %}
+        </div>
+        <div class="col-lg-4">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-5">
+                    <div class="form-control input-group">
+                        <label for="filter">Select the filter field: </label>
+                        <select name="filter" id="filter">
+                            <option value="year" selected>Year</option>
+                            <option value="course">Course</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" name="input" class="form-control p-3" placeholder="Year" id="input">
+                        <button type="submit" class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    $('#filter').change(function(){
+        const filter = $(this).val()
+        $('#input').attr('placeholder', filter)
+    })
+</script>
+{% endblock script %}

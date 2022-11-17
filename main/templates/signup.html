@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Sign up
+{% endblock title %}
+{% block styles %}
+<style>
+    /* .choosers {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    #chooser {
+        background: #7AB730;
+        color: white;
+        padding: 16px;
+        border-radius: 10px;
+    }
+    .chooser-active {
+        border: 5px solid blue;
+    } */
+    .reg-form {
+        margin-top: 10px;
+        /* display: flex;
+        justify-content: center; */
+    }
+    .hide {
+        display: none;
+    }
+</style>
+{% endblock styles %}
+{% block content %}
+<div class="container min-h-100">
+    <!-- <div class="choosers">
+        <span id="chooser">Register as Admin</span>
+        <span id="chooser">Register as Alumni</span>
+    </div> -->
+    <div class="col-md-6">
+        <div class="reg-form">
+            <form action="" method="post" id="form" enctype="multipart/form-data">
+                <h1 id="form-name"></h1>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div id="div_id_profile" class="form-group hide"> 
+                </div>
+                <input type="submit" class="btn btn-success" value="Register"/>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script>
+    const href = location.href;
+    const url = new URL(href);
+    const mode = url.searchParams.get('mode');
+    const form = `{{ profile_form|crispy }}`;
+    if (mode == null || mode == 'admin') {
+        $('#form-name').text('Admin Register form')
+        $('#form').append(
+            '<input type="hidden" name="is_admin" id="is_admin" value="1">'
+        );
+    } else {
+        $('#form-name').text('Alumni Register form');
+        $('#div_id_profile').removeClass('hide');
+        $('#div_id_profile').append(form);
+    }
+</script>
+{% endblock script %}

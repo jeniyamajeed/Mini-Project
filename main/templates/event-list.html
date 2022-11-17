@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block title %}
+Event list
+{% endblock title %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+    {% for obj in object_list %}
+    <div class="row gx-5 mb-4 border-bottom">
+        <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+            <div class="position-relative h-100">
+                <img class="position-absolute w-100 h-100 rounded" src="{{obj.pic.url}}" style="object-fit: cover;">
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="border-start border-5 border-primary ps-5 mb-5">
+                <h6 class="text-primary text-uppercase">{{obj.created_by.username}}</h6>
+                <h1 class="display-5 text-uppercase mb-0">{{obj.title}}</h1>
+            </div>
+            <h4 class="text-body mb-4">{{obj.content}}</h4>
+            <div class="bg-light p-4">
+                <ul class="nav nav-pills justify-content-between mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item w-50" role="presentation">
+                        <button class="nav-link text-uppercase w-100 active" id="pills-1-tab-{{obj.id}}" data-bs-toggle="pill"
+                            data-bs-target="#pills-1-{{obj.id}}" type="button" role="tab" aria-controls="pills-1" aria-selected="true">Our
+                            Mission</button>
+                    </li>
+                    <li class="nav-item w-50" role="presentation">
+                        <button class="nav-link text-uppercase w-100" id="pills-2-tab-{{obj.id}}" data-bs-toggle="pill"
+                            data-bs-target="#pills-2-{{obj.id}}" type="button" role="tab" aria-controls="pills-2" aria-selected="false">Our
+                            Vission</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-1-{{obj.id}}" role="tabpanel" aria-labelledby="pills-1-tab-{{obj.id}}">
+                        <p class="mb-0">{{obj.mission}}</p>
+                    </div>
+                    <div class="tab-pane fade" id="pills-2-{{obj.id}}" role="tabpanel" aria-labelledby="pills-2-tab-{{obj.id}}">
+                        <p class="mb-0">{{obj.vission}}</p>
+                    </div>
+                </div>
+            </div>
+            <a class="text-primary text-uppercase" href="{% url 'event-update' pk=obj.id %}">update<i class="bi bi-chevron-right"></i></a>
+        </div>
+    </div>
+    {% empty %}
+    <h2>No events are created!</h2>
+    {% endfor %}
+</div>
+{% endblock content %}

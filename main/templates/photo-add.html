@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% block title %}
+Photo add
+{% endblock title %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+    <div class="bg-light rounded p-5">
+        <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Upload a new photo</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-12">
+                    <input type="text" class="form-control bg-white border-0" name="name" placeholder="Name" style="height: 55px;">
+                </div>
+                <div class="col-12">
+                    <label class="form-label" for="pic">Upload an image</label>
+                    <input type="file" class="form-control bg-white border-0" id="pic" name="pic" />
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary w-100 py-3" type="submit">Upload</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

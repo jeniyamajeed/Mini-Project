@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+            <h6 class="text-primary text-uppercase">Your are {% if user.is_staff %} Admin {% else %} A Member {% endif %}</h6>
+            <h1 class="display-5 text-uppercase mb-0">Services Available</h1>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-house display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Alumni Members</h5>
+                        <p>View other peoples.</p>
+                        <a class="text-primary text-uppercase" href="{% url 'alumni-list' %}">Click to view<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="bi bi-envelope-open display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">View News</h5>
+                        <p>You can read news</p>
+                        <a class="text-primary text-uppercase" href="{% url 'news-list' %}">Click to view<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% if user.is_staff %}
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-vaccine display-1 text-primary me-4"></i>
+                    <!-- <i class="bi bi-envelope-open display-1 text-primary me-4"></i> -->
+                    <div>
+                        <h5 class="text-uppercase mb-3">Add News</h5>
+                        <p>Is there any news...</p>
+                        <a class="text-primary text-uppercase" href="{% url 'news-add' %}">Click to add news<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-food display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Events</h5>
+                        <p>You can view events</p>
+                        <a class="text-primary text-uppercase" href="{% url 'event-list' %}">Click to view<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-grooming display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Add Events</h5>
+                        <p>You can add events</p>
+                        <a class="text-primary text-uppercase" href="{% url 'event-add' %}">Click to add<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-cat display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Gallery</h5>
+                        <p>You can view photos</p>
+                        <a class="text-primary text-uppercase" href="{% url 'photo-list' %}">Click to view<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-dog display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Add Photos</h5>
+                        <p>You can add photos</p>
+                        <a class="text-primary text-uppercase" href="{% url 'photo-add' %}">Click to add<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% if user.is_staff %}
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-vaccine display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Respond to feedbacks</h5>
+                        <p>Give response to feedbacks</p>
+                        <a class="text-primary text-uppercase" href="{% url 'feedback-list' %}">Click to add response<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-md-6">
+                <div class="service-item bg-light d-flex p-4">
+                    <i class="flaticon-vaccine display-1 text-primary me-4"></i>
+                    <div>
+                        <h5 class="text-uppercase mb-3">Add Feedback</h5>
+                        <p>If you have any suggestions, feel free to say!</p>
+                        <a class="text-primary text-uppercase" href="{% url 'feedback-add' %}">Add suggestion<i class="bi bi-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

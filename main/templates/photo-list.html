@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% block title %}
+Photo list
+{% endblock title %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+<div class="row">
+    {% for obj in object_list %}
+        <div class="col-md-6 team-item mt-4 mb-4">
+            <div class="position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="{{ obj.pic.url }}" alt="">
+            </div>
+            <div class="bg-light text-center p-4">
+                <h5 class="text-uppercase">{{obj.name}}</h5>
+                <p class="m-0">{{obj.created_by.username}}</p>
+                <small><i class="bi bi-calendar-date me-2"></i>{{obj.created_on}}</small>
+            </div>
+        </div>
+    {% empty %}
+    <h1>No photos uploaded!</h1>
+    {% endfor %}
+</div>
+</div>
+{% endblock content %}

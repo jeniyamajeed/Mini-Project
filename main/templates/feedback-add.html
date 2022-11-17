@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+Feedback add
+{% endblock title %}
+{% block content %}
+<div class="container min-h-100 mt-4">
+    <div class="bg-light rounded p-5">
+        <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Write feedback</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-12">
+                    <textarea type="text" class="form-control bg-white border-0" name="feedback" placeholder="Feedback" rows="8"></textarea>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary w-100 py-3" type="submit">Post</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% for obj in object_list %}
+    <div class="d-flex mb-4">
+        <img src="{{ obj.created_by.profile.pic.url }}" class="img-fluid" style="width: 45px; height: 45px;">
+        <div class="ps-3">
+            <h6><a href="">You</a> <small><i>{{obj.created_on}}</i></small></h6>
+            <p>{{obj.feedback}}</p>
+        </div>
+    </div>
+    {% if obj.response %}
+    <div class="d-flex ms-5 mb-4">
+        <img src="{% static 'img/man.png' %}" class="img-fluid" style="width: 45px; height: 45px;">
+        <div class="ps-3">
+            <h6><a href="">{{obj.response.created_by.username}}</a> <small><i>{{obj.response.created_on}}</i></small></h6>
+            <p>{{obj.response.response}}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% empty %}
+    <h1>You have not written any!</h1>
+    {% endfor %}
+</div>
+{% endblock content %}
